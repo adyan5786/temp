@@ -1,0 +1,19 @@
+1. Open folder within all repo files and Docker Desktop
+2. Rename .env.example to .env
+3. Edit: APP_NAME to have your name in it
+4. Create ".dockerignore" -> Paste:
+node_modules
+package-lock.json
+5. Create a "Dockerfile" in the same directory as all your other files.
+6. Paste following code:
+FROM node:alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install 
+COPY . .
+EXPOSE 5555
+CMD ["npm", "start"]
+7. Open terminal -> Enter:
+	- docker build -t recipe-local-image .
+	- docker run -d -p 8082:5555 --name recipe-app recipe-local-image
+8. Go to browser -> Open http://localhost:8082

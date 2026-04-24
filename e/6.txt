@@ -1,0 +1,80 @@
+1. Open main page of AWS.
+2. Type in search bar: EC2
+3. Left Sidebar -> under Network & Security -> Key Pairs
+4. Create Key Pair
+	- Name: validkeypairname
+	- Key pair type: RSA
+	- Private key file format: .ppk
+	- Create Key Pair and download on Desktop.
+5. Left Sidebar -> under Network & Security -> Security Groups
+6. Create Security Group
+	- Security group name: validsecuritygroupname
+	- Description: Valid description
+	- Under Inbound rules:
+		- Add Rule -> Type to SSH -> Source to Anywhere IPv4
+		- Add Rule -> Type to Custom TCP -> Port Range to 5555 -> Source to Anywhere IPv4
+	- Create Security Group
+7. Left Sidebar -> under Instances -> Instances
+8. Launch instances
+	- Name: validservername
+	- Quick Start: Ubuntu OS
+	- Instance type: t2.micro 
+	- Key pair (login): Select validkeypairname
+	- Network settings -> Select existing security group -> select validsecuritygroupname
+	- Launch instance
+9. Left Sidebar -> under Network & Security -> Elastic IPs
+10. Allocate Elastic IP Address -> Allocate (No changes needed) 
+11. After Allocation, it redirects you back to Elastic IP addresses page with a table
+12. Select first entry -> Actions (beside Allocate Elastic IP address ORANGE button) -> Associate Elastic IP address
+	- Resource Type: Instance 
+	- Instance: validservername 
+	- Private IP address: Select ip address visible
+	- Reassociation: Checked
+	- Associate
+13. Left Sidebar -> under Instances -> Instances ->Select validservername -> Copy Elastic IP address
+14. Open PuTTY on Windows:
+	- Host Name: ubuntu@<elastic-ip>
+	- Port: 22
+	- Left sidebar -> Connection -> SSH -> Auth -> Credentials -> Private key for authentication -> Open validkeypairname.ppk
+15. Run following commands:
+sudo apt update
+sudo apt install nodejs npm git -y
+git clone https://github.com/username/some-repo.git
+cd some-repo
+npm install (make sure folder contains package.json)
+
+Dont close PuTTY Terminal 
+
+16. Open new tab of AWS -> Type in search bar: Aurora & RDS
+17. Left sidebar -> Databases
+18. Create database -> Full configuration
+	- Engine Type: MySQL	
+	- Templates: Free Tier
+	- Deployment options: Single-AZ
+	- DB instance identifier: database-1
+	- Master username: admin
+	- Auto generate password: Uncheck
+	- Master password: Random Password Generator (YGwcKyve95MDFRD) (keep it somewhere written)
+	- Additional credentials settings -> Database authentication options -> Password authentication
+	- Instance type: db.t4g.micro
+	- Compute resource: Connect to an EC2 computer resource
+	- EC2 instance: validservername
+	- Additional VPC security group: validsecuritygroupname
+	- Additional Configuration (Before Estimated monthly costs) -> Initial database name -> recipe_db
+	- Create database
+19. Wait until database status -> Ok (takes a few minutes)
+20. Click database-1 link -> Connectivity and Security Tab
+	- Connect using: Endpoints
+	- Additional configurations -> Copy Endpoint
+21. Open PuTTY terminal: (In repo's folder)
+	- Type: nano .env
+	- Paste in: 
+DB_HOST=<paste-your-rds-endpoint-here>
+DB_USER=admin
+DB_PASSWORD=YGwcKyve95MDFRD
+DB_NAME=recipe_db
+PORT=5555	
+	- CTRL+O -> Enter -> CTRL+X
+	- npm start
+22. Open new tab -> http://<elastic-ip>:5555
+23. End Lab.

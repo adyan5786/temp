@@ -1,0 +1,10 @@
+1. Open folder within all repo files and Docker Desktop
+2. Create a "Dockerfile" in the same directory as all your other files.
+3. Paste following code:
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+EXPOSE 80
+4. Open terminal -> Enter:
+	- docker build -t recipe-static-image .
+	- docker run -d -p 8082:80 --name recipe-static-container recipe-static-image
+5. Go to browser -> Open http://localhost:8082

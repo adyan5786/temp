@@ -1,0 +1,45 @@
+1. Open main page of AWS.
+2. Type in search bar: EC2
+3. Left Sidebar -> under Network & Security -> Key Pairs
+4. Create Key Pair
+	- Name: validkeypairname
+	- Key pair type: RSA
+	- Private key file format: .ppk
+	- Create Key Pair and download on Desktop.
+5. Left Sidebar -> under Network & Security -> Security Groups
+6. Create Security Group
+	- Security group name: validsecuritygroupname
+	- Description: valid description
+	- Under Inbound rules:
+		- Add Rule -> Type to SSH -> Source to Anywhere IPv4
+		- Add Rule -> Type to Custom TCP -> Port Range to 3333 -> Source to Anywhere IPv4
+	- Create Security Group
+7. Left Sidebar -> under Instances -> Instances
+8. Launch instances
+	- Name: validservername
+	- Quick Start: Ubuntu OS
+	- Instance type: t2.micro 
+	- Key pair (login): Select validkeypairname
+	- Network settings -> Select existing security group -> select validsecuritygroupname
+	- Launch instance
+9. Left Sidebar -> under Network & Security -> Elastic IPs
+10. Allocate Elastic IP Address -> Allocate (No changes needed) 
+11. After Allocation, it redirects you back to Elastic IP addresses page with a table
+12. Select first entry -> Actions (beside Allocate Elastic IP address ORANGE button) -> Associate Elastic IP address
+	- Resource Type: Instance 
+	- Instance: validservername 
+	- Private IP address: Select ip address visible
+	- Reassociation: Checked
+	- Associate
+13. Left Sidebar -> under Instances -> Instances
+14. Select validservername -> Connect (top right) -> Leave everything as it as and connect. (wait if Status check is initializing)	
+15. Run following commands:
+sudo apt update
+sudo apt install nodejs npm git -y
+git clone https://github.com/username/some-repo.git
+cd some-repo
+npm install (make sure folder contains package.json)
+PORT=3333 npm start
+16. Left sidebar -> under Instances -> Instances
+17. Copy the Elastic IP -> http://<elastic-ip>:3333 in a new tab
+18. End Lab.

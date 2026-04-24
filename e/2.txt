@@ -1,0 +1,20 @@
+1. Click 'New' button to create a New VM
+2. Name = Ubuntu Server
+3. Select existing hard disk and select .vdi file
+4. Finish and machine ready
+5. Click Settings, go to networking section, select NAT
+6. Port Forwarding, add ports:
+	- Host Port 2222 to Guest Port 22
+	- Host Port 8081 to Guest Port 3000
+7. Start VM and Accept popups if any
+8. Username: osboxes | Password: osboxes.org
+9. Run following commands:
+sudo apt update
+sudo apt install nodejs npm git -y
+git clone https://github.com/username/some-repo.git
+cd some-repo
+npm install (make sure folder contains package.json)
+npm start
+10. Open Chrome and go to http://localhost:8081
+
+Note: if console prints Server running on port 5000, change guest port from 3000 to 5000

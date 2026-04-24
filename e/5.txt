@@ -1,0 +1,43 @@
+1. Open main page of AWS.
+2. Type in search bar: Security Groups (EC2 feature)
+3. Create Security Group
+	- Security group name: validsecuritygroupname
+	- Description: valid description
+	- Under Inbound rules:
+		- Add Rule -> Type to SSH -> Source to Anywhere IPv4
+		- Add Rule -> Type to Custom TCP -> Port Range to 3000 -> Source to Anywhere IPv4
+	- Create Security Group
+4. Type in search bar: Elastic Beanstalk
+5. Create application
+6. Step 1:
+	- Environment Tier: Web server environment
+	- Application name: validapplicationname
+	- Environment domain: validdomain
+	- Platform: Node.js
+	- Application code: Upload your own code
+	- Version label: v1
+	- Source code: Local file
+	- Upload application: 
+		- Open your repo on GitHub.
+		- Click on Green Code button -> Download ZIP
+		- Extract ZIP -> Go to folder with package.json -> Select all files and folders within that folder -> ZIP it as app.zip
+		- Upload app.zip
+	- Presets: Single instance
+	- Next
+7. Step 2:
+	- Service role: LabRole
+	- EC2 instance profile: LabInstanceProfile
+	- EC2 key pair: vockey
+	- Next
+8. Step 3: 
+	- VPC: Select first option (Not the Work VPC)
+	- Public IP address: Check
+	- Instance subnets: Check first one 
+	- Next
+9. Step 4: 
+	- EC2 security groups: validsecuritygroupname
+	- Next
+10. Step 5: Next
+11. Step 6: Create
+12. Wait until Health -> Ok, then click on the Domain link provided.
+13. End Lab.

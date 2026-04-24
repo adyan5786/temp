@@ -1,0 +1,33 @@
+1. Open main page of AWS.
+2. Type in search bar: S3
+3. Create bucket:
+	- Bucket name: Enter a unique bucket name
+	- Block all public access: Uncheck
+	- I acknowledge: Check
+	- Create bucket
+4. Upload -> Add files and Add folder of website repo's contents -> Upload -> Close
+5. In the bucket page:
+	- Properties tab -> Static website hosting
+				- Static website hosting -> Enable
+				- Index document -> index.html
+				- Save changes
+	- Permissions tab -> Bucket Policy -> Edit
+
+Add this under policy:
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::YourBucketName/*"
+        }
+    ]
+}
+Note: Change "YourBucketName"
+-> Save changes
+	
+	- Properties tab again -> Static website hosting -> Bucket website endpoint -> Open link
+6. End Lab
